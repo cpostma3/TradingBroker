@@ -1,0 +1,6 @@
+INDEX VERSION 1.131+C:\Users\kkont\courses\UWO-courses\CS-2212B-Software-Engineering\2021-2022\Project\Sample-Code\.metadata\.plugins\org.eclipse.jdt.core
+82206116.index
+1159106839.index
+3054297072.index
+3176426051.index
+2196199803.index
