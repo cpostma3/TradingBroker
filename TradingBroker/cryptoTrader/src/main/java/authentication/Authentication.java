@@ -9,7 +9,16 @@ package authentication;
  */
 public class Authentication {
 
+	/*
+	 * Verifies if the username and password are correct. 
+	 * Returns True if they match and false if there is no user or the password is incorrect
+	 * Arguments: 
+	 * 	username: a string to represent the user 
+	 * 	password: a string to represent the password
+	 */
 	public boolean login(String username, String password) {
+		if(password.equals(getUser(username)))
+			return true;
 		return false;
 	}
 	
@@ -23,7 +32,7 @@ public class Authentication {
 	 * 
 	 */
 	private String getUser(String username) {
-		return "";
+		
 		 //TODO
 	}
 	
