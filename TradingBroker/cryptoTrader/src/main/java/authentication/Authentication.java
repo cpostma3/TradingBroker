@@ -27,9 +27,9 @@ public class Authentication {
 			return false;
 		else {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("Accounts.txt", true));
-			writer.append('\n');
+			writer.newLine();
 			writer.append(username);
-			writer.append('\n');
+			writer.newLine();
 			writer.append(password);
 			writer.close();
 			return true;
