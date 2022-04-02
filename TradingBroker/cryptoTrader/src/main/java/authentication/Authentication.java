@@ -2,6 +2,9 @@ package authentication;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /* Name: Authentication
  * Date: April 1
@@ -18,16 +21,27 @@ public class Authentication {
 	 * 	password: a string to represent the password
 	 */
 	public boolean login(String username, String password) {
-		if(password.equals(getUser(username)))
+		if (password.equals(getUser(username)))
 			return true;
 		return false;
 	}
 	
-	/* a method to write a new user to the document 
-	 * returns true if it works false if user already exists
+	/*
+	 * a helper method to write a new user to the document returns true if it works
+	 * false if user already exists
 	 */
-	public boolean addUser(String username, String password) {
-		return false;
+	public boolean addUser(String username, String password) throws IOException {
+		if (!getUser(username).equals(null))
+			return false;
+		else {
+			BufferedWriter writer = new BufferedWriter(new FileWriter("Accounts.txt", true));
+			writer.newLine();
+			writer.append(username);
+			writer.newLine();
+			writer.append(password);
+			writer.close();
+			return true;
+		}
 	}
 	
 	
@@ -62,7 +76,9 @@ public class Authentication {
 			return null;
 		}
 	}
-	
-	
-	
+
+	private boolean setUser(String username, String password) {
+		return false;
+	}
+
 }
