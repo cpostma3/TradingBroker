@@ -69,17 +69,14 @@ public class MainUI extends JFrame implements ActionListener {
 		// Set window title
 		super("Crypto Trading Tool");
 
-		// Set top bar
-
-		JPanel north = new JPanel();
-
 		
-		//LOGIN TODO
+		//LOGIN
 		if(!LoginUI.login())
 			System.exit(0);
 		
-
-		//LOGIN END 
+		
+		// Set top bar
+		JPanel north = new JPanel();
 		
 		
 //		north.add(strategyList);
@@ -194,8 +191,9 @@ public class MainUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 		if ("refresh".equals(command)) {
-			//TODO Create a broker customization object and give it the count of brokers
-			//BrokerCustomization brokers = new BrokerCustomization(dtm.getRowCount());
+			//Create a broker customization object and give it the count of brokers
+			BrokerCustomization brokers = new BrokerCustomization(dtm.getRowCount());
+			
 			for (int count = 0; count < dtm.getRowCount(); count++){
 					Object traderObject = dtm.getValueAt(count, 0);
 					if (traderObject == null) {
@@ -215,8 +213,13 @@ public class MainUI extends JFrame implements ActionListener {
 						return;
 					}
 					String strategyName = strategyObject.toString();
-					//This has to be the moment we add all the different Broker objects
-					//brokers.addBroker(traderName, coinNames, strategyName);
+					
+					//Add the new Broker object if there is a duplicate name show message and return
+					if (!brokers.addBroker(traderName, coinNames, strategyName)) {
+						JOptionPane.showMessageDialog(this, "Duplicated broker name " +  traderName + " at line " + (count + 1) );
+						return;
+					}
+						
 					System.out.println(traderName + " " + Arrays.toString(coinNames) + " " + strategyName);
 	        }
 			
