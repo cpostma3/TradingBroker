@@ -2,12 +2,17 @@ package authentication;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /* Name: Authentication
  * Date: April 1
- * Authors:
- * Description:
- *
+ * Authors: Courtney and Josh
+ * Description: Authentication is used to store usernames and passwords
+ *		and verify usernames and passwords. AddUser will store 
+ *		The provided username and password into the Accounts.txt.
+ *		Login will verify from the Accounts.txt file a pair of username and password
  */
 public class Authentication {
 
@@ -17,17 +22,31 @@ public class Authentication {
 	 * 	username: a string to represent the user 
 	 * 	password: a string to represent the password
 	 */
-	public boolean login(String username, String password) {
-		if(password.equals(getUser(username)))
+	protected boolean login(String username, String password) {
+		if (password.equals(getUser(username))) {
+			System.out.println("true");
 			return true;
+		}
+		System.out.println("false");
 		return false;
 	}
 	
-	/* a method to write a new user to the document 
-	 * returns true if it works false if user already exists
+	/*
+	 * a helper method to write a new user to the document returns true if it works
+	 * false if user already exists
 	 */
-	public boolean addUser(String username, String password) {
-		return false;
+	protected boolean addUser(String username, String password) throws IOException {
+		if (getUser(username) != null)
+			return false;
+		else {
+			BufferedWriter writer = new BufferedWriter(new FileWriter("Accounts.txt", true));
+			writer.newLine();
+			writer.append(username);
+			writer.newLine();
+			writer.append(password);
+			writer.close();
+			return true;
+		}
 	}
 	
 	
@@ -35,34 +54,33 @@ public class Authentication {
 	 * database. If no user exists it will return null
 	 * TODO
 	 */
-	public static String getUser(String username) {
+	private String getUser(String username) {
 		//Instantiate Scanner
 		Scanner scan;
 		try {
 			scan = new Scanner(new File("Accounts.txt"));
-		//Remove blank line at start
-		String next = scan.nextLine();
-		
-		//Comb through document for the correct username 
-		while(scan.hasNextLine()) {
-			//Get the next username
-			next = scan.nextLine();
+			//Remove blank line at start
+			String next = scan.nextLine();
+			
+			//Comb through document for the correct username 
+			while(scan.hasNextLine()) {
+				//Get the next username
+				next = scan.nextLine();
 
-			if(next.equals(username))
-				return scan.nextLine();
-			//Brush past next password
-			next = scan.nextLine();			
-		}
+				if(next.equals(username))
+					return scan.nextLine();
+				//Brush past next password
+				next = scan.nextLine();		
+				
+			}
 		
-		return null;		 
+			return null;
 		
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			//There are no usernames in the Accounts.txt file or no text file at all
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
-	
-	
+
 }

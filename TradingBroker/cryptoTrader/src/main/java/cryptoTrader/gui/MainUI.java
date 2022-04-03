@@ -24,11 +24,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import authentication.LoginUI;
 import cryptoTrader.utils.DataVisualizationCreator;
+import tradingApplication.BrokerCustomization;
 
 public class MainUI extends JFrame implements ActionListener {
 	/**
@@ -62,15 +65,23 @@ public class MainUI extends JFrame implements ActionListener {
 	}
 
 	private MainUI() {
-
+		
 		// Set window title
 		super("Crypto Trading Tool");
 
 		// Set top bar
 
-
 		JPanel north = new JPanel();
 
+		
+		//LOGIN TODO
+		if(!LoginUI.login())
+			System.exit(0);
+		
+
+		//LOGIN END 
+		
+		
 //		north.add(strategyList);
 
 		// Set bottom bar
@@ -183,6 +194,8 @@ public class MainUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 		if ("refresh".equals(command)) {
+			//TODO Create a broker customization object and give it the count of brokers
+			//BrokerCustomization brokers = new BrokerCustomization(dtm.getRowCount());
 			for (int count = 0; count < dtm.getRowCount(); count++){
 					Object traderObject = dtm.getValueAt(count, 0);
 					if (traderObject == null) {
@@ -202,8 +215,13 @@ public class MainUI extends JFrame implements ActionListener {
 						return;
 					}
 					String strategyName = strategyObject.toString();
+					//This has to be the moment we add all the different Broker objects
+					//brokers.addBroker(traderName, coinNames, strategyName);
 					System.out.println(traderName + " " + Arrays.toString(coinNames) + " " + strategyName);
 	        }
+			
+			//brokers
+			
 			stats.removeAll();
 			DataVisualizationCreator creator = new DataVisualizationCreator();
 			creator.createCharts();
