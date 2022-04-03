@@ -22,9 +22,10 @@ public class Authentication {
 	 * 	username: a string to represent the user 
 	 * 	password: a string to represent the password
 	 */
-	public boolean login(String username, String password) {
+	protected boolean login(String username, String password) {
 		if (password.equals(getUser(username)))
 			return true;
+		
 		return false;
 	}
 	
@@ -32,8 +33,8 @@ public class Authentication {
 	 * a helper method to write a new user to the document returns true if it works
 	 * false if user already exists
 	 */
-	public boolean addUser(String username, String password) throws IOException {
-		if (!getUser(username).equals(null))
+	protected boolean addUser(String username, String password) throws IOException {
+		if (getUser(username) != null)
 			return false;
 		else {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("Accounts.txt", true));
@@ -51,14 +52,14 @@ public class Authentication {
 	 * database. If no user exists it will return null
 	 * TODO
 	 */
-	public static String getUser(String username) {
+	private String getUser(String username) {
 		//Instantiate Scanner
 		Scanner scan;
 		try {
 			scan = new Scanner(new File("Accounts.txt"));
 			//Remove blank line at start
 			String next = scan.nextLine();
-		
+
 			//Comb through document for the correct username 
 			while(scan.hasNextLine()) {
 				//Get the next username
@@ -78,5 +79,4 @@ public class Authentication {
 			return null;
 		}
 	}
-
 }
