@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /* Name: Authentication
- * Date: April 1
+ * Date: April 3
  * Authors: Courtney and Josh
  * Description: Authentication is used to store usernames and passwords
  *		and verify usernames and passwords. AddUser will store 
@@ -49,7 +49,7 @@ public class Authentication {
 	
 	
 	/* getUser is a helper method to GetUser a password of a user in the 
-	 * database. If no user exists it will return null
+	 * database. If no user of that username exists it will return null.
 	 */
 	private String getUser(String username) {
 		//Instantiate Scanner
@@ -78,7 +78,7 @@ public class Authentication {
 			return null;
 		
 		} catch (FileNotFoundException e) {
-			//There is no text file at all
+			//There is no text file at all create one and continue
 			File accounts = new File("Accounts.txt");
 			try {
 				accounts.createNewFile();

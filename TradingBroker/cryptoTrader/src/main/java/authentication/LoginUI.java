@@ -8,16 +8,21 @@ import javax.swing.JTextField;
 /* Name: Authentication
  * Date: April 3
  * Authors: Josh (and Courtney)
- * Description: LoginUI uses the Authentication class to addusers and verify credentials
- *		and verify usernames and passwords. AddUser will store 
- *		The provided username and password into the Accounts.txt.
- *		Login will verify from the Accounts.txt file a pair of username and password
+ * Description: LoginUI's primary method is Login which creates a popup to allow the
+ * 		user to login or create a new account. This class passes off the parameters to 
+ * 		the Authentication class to add users and verify credentials. 
  */
 
 public class LoginUI {
 
 	/*
-	 * Login is called to prompt the user
+	 * Login is called to prompt the user to add an account or login. Returns true
+	 * if login successful. Returns false otherwise.
+	 * 
+	 * Using JOptionPane to create a popup and retrieve information. The method uses
+	 * the Authentication class to Login and verify the input. If there is an
+	 * attempt at adding a user with the same name or prvoviding credentials that
+	 * are incorrect an error popup will appear and the method will return false.
 	 * 
 	 */
 	public static boolean login() {
@@ -28,37 +33,38 @@ public class LoginUI {
 
 		Object[] message = { "Username:", username, "Password:", password };
 
-		// Prompts the user if they want to create a new account
+		// Prompt the user if they want to create a new account
 		int opt = JOptionPane.showConfirmDialog(null, "Do you have an account?", "Login", JOptionPane.YES_NO_OPTION);
 		if (opt == JOptionPane.NO_OPTION) {
 			opt = JOptionPane.showConfirmDialog(null, message, "Create New User", JOptionPane.CANCEL_OPTION);
 			if (opt == JOptionPane.OK_OPTION) {
 				try {
-					if (!aut.addUser(username.getText(), password.getText()))
+					if (!aut.addUser(username.getText(), password.getText())) {
+						JOptionPane.showMessageDialog(null, "User already exists");
 						return false;
+					}
 				} catch (IOException e) {
 					return false;
 				}
-			} else
+			} else // Cancel
 				return false;
 		}
 
+		//wipe the text
 		username.setText("");
 		password.setText("");
 
-		// This is the Login
+		// Prompt for the Login
 
 		opt = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.CANCEL_OPTION);
-		if (opt == JOptionPane.OK_OPTION) {
+		if (opt == JOptionPane.OK_OPTION)
 			// Determine if the Login was correct
-			if (aut.login(username.getText(), password.getText())) {
+			if (aut.login(username.getText(), password.getText()))
 				return true;
-			} else
-				return false;
-		} else {
-			// The user Canceled
-			return false;
-		}
+			else
+				JOptionPane.showMessageDialog(null, "Login Failed");
 
+		// The user canceled or failed login
+		return false;
 	}
 }
