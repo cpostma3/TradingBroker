@@ -23,11 +23,9 @@ public class Authentication {
 	 * 	password: a string to represent the password
 	 */
 	protected boolean login(String username, String password) {
-		if (password.equals(getUser(username))) {
-			System.out.println("true");
+		if (password.equals(getUser(username)))
 			return true;
-		}
-		System.out.println("false");
+		
 		return false;
 	}
 	
@@ -61,7 +59,7 @@ public class Authentication {
 			scan = new Scanner(new File("Accounts.txt"));
 			//Remove blank line at start
 			String next = scan.nextLine();
-			
+
 			//Comb through document for the correct username 
 			while(scan.hasNextLine()) {
 				//Get the next username
@@ -70,8 +68,7 @@ public class Authentication {
 				if(next.equals(username))
 					return scan.nextLine();
 				//Brush past next password
-				next = scan.nextLine();		
-				
+				next = scan.nextLine();			
 			}
 		
 			return null;
@@ -82,5 +79,4 @@ public class Authentication {
 			return null;
 		}
 	}
-
 }
