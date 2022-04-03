@@ -50,14 +50,18 @@ public class Authentication {
 	
 	/* getUser is a helper method to GetUser a password of a user in the 
 	 * database. If no user exists it will return null
-	 * TODO
 	 */
 	private String getUser(String username) {
 		//Instantiate Scanner
 		Scanner scan;
 		try {
 			scan = new Scanner(new File("Accounts.txt"));
-			//Remove blank line at start
+			
+			//If the document is empty
+			if(!scan.hasNextLine())
+				return null;
+			
+			//Remove blank line at start			
 			String next = scan.nextLine();
 
 			//Comb through document for the correct username 
@@ -74,9 +78,12 @@ public class Authentication {
 			return null;
 		
 		} catch (FileNotFoundException e) {
-			//There are no usernames in the Accounts.txt file or no text file at all
-			e.printStackTrace();
+			//There is no text file at all
+			File accounts = new File("Accounts.txt");
+			try {
+				accounts.createNewFile();
+			} catch (IOException e1) {e1.printStackTrace();}
 			return null;
-		}
+		} 
 	}
 }
