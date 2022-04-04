@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 /**
  * @Name: PubSub
  * @Date: April 3
@@ -21,7 +23,6 @@ public class PubSub {
 	
 	private String [] cryptoNames;
 	private DataFetcher fetch;
-	//private List<List<Broker>> subscribers;
 	private String date;
 	
 	/**
@@ -77,6 +78,17 @@ public class PubSub {
 		}
 		
 		return want;
+	}
+	
+	/**
+	 * Creates a poppup of all listed crypto currencies and their ids
+	 */
+	public void displayCryptoNames() {
+		String message = "";
+		for (int i = 0; i < cryptoNames.length; i++)
+			message+= cryptoNames[i] + ": with id " + AvailableCryptoList.getInstance().getCryptoID(cryptoNames[i]) + "\n";
+		
+		JOptionPane.showMessageDialog(null, message);
 	}
 	
 	/**

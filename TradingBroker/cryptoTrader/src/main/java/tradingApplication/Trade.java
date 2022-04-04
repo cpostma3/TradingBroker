@@ -53,6 +53,7 @@ public class Trade {
 		if (performTrade) {
 			transactions = new Transaction[coinInfo.length];
 			for (int i = 0; i < coinInfo.length; i++) {
+				transactions[i] = new Transaction();
 				transactions[i].setName(broker.getName());
 				transactions[i].setStrategy(broker.getStrategy());
 				transactions[i].setCoin(coinInfo[i].getName());
@@ -68,7 +69,7 @@ public class Trade {
 		}
 		// Otherwise, return an empty string
 		else {
-			return new Transaction[0];
+			transactions =  new Transaction[0];
 		}
 		
 		return transactions;
@@ -85,7 +86,7 @@ public class Trade {
 		int order = 0;
 		// Check that bitcoin is one of the coins the broker is interested in
 		for (int i = 0; i < coinInfo.length; i++) {
-			if (coinInfo[i].equals("bitcoin")) {
+			if (coinInfo[i].getName().toLowerCase().equals("bitcoin")) {
 				bitcoin = true;
 				order = i;
 			}
@@ -97,6 +98,7 @@ public class Trade {
 		if (bitcoin) {
 			if (coinInfo[order].getPrice() > 50) {
 				transactions = new Transaction[1];
+				transactions[0] = new Transaction();
 				transactions[0].setName(broker.getName());
 				transactions[0].setStrategy(broker.getStrategy());
 				transactions[0].setCoin(coinInfo[order].getName());
@@ -109,12 +111,13 @@ public class Trade {
 			}
 		} else {
 			transactions = new Transaction[1];
+			transactions[0] = new Transaction();
 			transactions[0].setName(broker.getName());
 			transactions[0].setStrategy(broker.getStrategy());
 			transactions[0].setCoin("bitcoin");
 			transactions[0].setAction("Fail");
-			transactions[0].setAmount(null);
-			transactions[0].setPrice(null);
+			transactions[0].setAmount("Null");
+			transactions[0].setPrice("Null");
 			transactions[0].setDate(PubSub.getInstance().getDate());
 		}
 		return transactions;
@@ -132,6 +135,7 @@ public class Trade {
 		if (coinInfo.length > 1) {
 			if (coinInfo[0].getPrice() > coinInfo[1].getPrice()) {
 				transactions = new Transaction[1];
+				transactions[0] = new Transaction();
 				transactions[0].setName(broker.getName());
 				transactions[0].setStrategy(broker.getStrategy());
 				transactions[0].setCoin(coinInfo[0].getName());
@@ -141,6 +145,7 @@ public class Trade {
 				transactions[0].setDate(PubSub.getInstance().getDate());
 			} else {
 				transactions = new Transaction[0];
+				
 			}
 		} else {
 			transactions = new Transaction[0];
@@ -162,6 +167,7 @@ public class Trade {
 		for (int i = 0; i < coinInfo.length; i++) {
 			// If the cap is high and the price is high, then sell
 			if (coinInfo[i].getCap() > 5 && coinInfo[i].getPrice() > 500) {
+				tempTransactions[i] = new Transaction();
 				tempTransactions[increment].setName(broker.getName());
 				tempTransactions[increment].setStrategy(broker.getStrategy());
 				tempTransactions[increment].setCoin(coinInfo[i].getName());
@@ -173,6 +179,7 @@ public class Trade {
 			} 
 			// If the cap is high and the price is low, then buy
 			else if (coinInfo[i].getCap() > 5 && coinInfo[i].getPrice() < 500) {
+				tempTransactions[i] = new Transaction();
 				tempTransactions[increment].setName(broker.getName());
 				tempTransactions[increment].setStrategy(broker.getStrategy());
 				tempTransactions[increment].setCoin(coinInfo[i].getName());
@@ -184,6 +191,7 @@ public class Trade {
 			} 
 			// If the cap is low and the price is high, then sell
 			else if (coinInfo[i].getCap() < 5 && coinInfo[i].getPrice() > 500) {
+				tempTransactions[i] = new Transaction();
 				tempTransactions[increment].setName(broker.getName());
 				tempTransactions[increment].setStrategy(broker.getStrategy());
 				tempTransactions[increment].setName(coinInfo[i].getName());

@@ -11,10 +11,10 @@ package tradingApplication;
 public class Coin {
 
 	//attributes
-	String name;
-	double price;
-	double cap;
-	double volume;
+	private String name;
+	private double price;
+	private double cap;
+	private double volume;
 
 	/**
 	 * Constructor that holds the coin's name
