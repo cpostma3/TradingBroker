@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @Name TradeInformation
  * @Date April 4
  * @author Owen 
- * Description: Populate brokers and execute their trading strategies and allow for getting of transaction lists.
+ * @Description: Populate brokers and execute their trading strategies and allow for getting of transaction lists.
  */
 public class TradeInformation {
 	
@@ -15,7 +15,7 @@ public class TradeInformation {
 	
 	/**
 	 * Create instance of itself it doesn't already exist
-	 * @return
+	 * @return instance of itself
 	 */
 	public static TradeInformation getInstance() {
 		if(instance == null) {
@@ -23,6 +23,7 @@ public class TradeInformation {
 		}
 		return instance;
 	}
+	
 	/**
 	 * Constructor for instance calling.
 	 */

@@ -6,21 +6,25 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/* Name: Authentication
- * Date: April 3
- * Authors: Courtney and Josh
- * Description: Authentication is used to store usernames and passwords
+/**
+ * @Name: Authentication
+ * @Date: April 3
+ * @Authors: Courtney and Josh
+ * @Description: Authentication is used to store usernames and passwords
  *		and verify usernames and passwords. AddUser will store 
  *		The provided username and password into the Accounts.txt.
  *		Login will verify from the Accounts.txt file a pair of username and password
  */
+
 public class Authentication {
 
-	/* Verifies if the username and password are correct. 
+	/**
+	 * Verifies if the username and password are correct. 
 	 * Returns True if they match and false if there is no user or the password is incorrect
-	 * Arguments: 
-	 * 	username: a string to represent the user 
-	 * 	password: a string to represent the password
+	 * @param username: a string to represent the user 
+	 * @param password: a string to represent the password
+	 * @return true if valid username and password match, false otherwise
+	 * @throws IOException
 	 */
 	protected boolean login(String username, String password) {
 		if (password.equals(getUser(username)))
@@ -29,9 +33,12 @@ public class Authentication {
 		return false;
 	}
 	
-	/*
+	/**
 	 * a helper method to write a new user to the document returns true if it works
 	 * false if user already exists
+	 * @param username: a string to represent the user 
+	 * @param password: a string to represent the password
+	 * @return successful addition returns true, false if unsuccessful
 	 */
 	protected boolean addUser(String username, String password) throws IOException {
 		if (getUser(username) != null)
@@ -47,9 +54,11 @@ public class Authentication {
 		}
 	}
 	
-	
-	/* getUser is a helper method to GetUser a password of a user in the 
+	/**
+	 * getUser is a helper method to GetUser a password of a user in the 
 	 * database. If no user of that username exists it will return null.
+	 * @param username: a string to represent the user 
+	 * @return return the password, or if no user exists it returns null
 	 */
 	private String getUser(String username) {
 		//Instantiate Scanner

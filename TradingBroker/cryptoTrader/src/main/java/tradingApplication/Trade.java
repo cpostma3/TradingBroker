@@ -1,14 +1,19 @@
 package tradingApplication;
 
-/* Name: Broker
- * Date: April 4
- * Authors: Courtney, Patrick, Josh and Owen
- * Description: This class's purpose is to execute a single broker's strategy
+/**
+ * @Name: Trade
+ * @Date: April 4
+ * @Authors: Courtney, Patrick, Josh and Owen
+ * @Description: This class's purpose is to execute a single broker's strategy
  * 				returning the transaction(s) it performed in a Transaction[]
  */
-
 public class Trade {
 	
+	/**
+	 * Find which strategy the broker uses and execute it
+	 * @param broker: broker desired to use strategy
+	 * @return corresponding strategy to the broker, or null if none selected
+	 */
 	protected static Transaction[] executeStrategy(Broker broker) {
 		//Get the value of the applicable coins
 		Coin[] coinInfo = PubSub.getInstance().getCoinInfo(broker.getCoins());
@@ -24,7 +29,12 @@ public class Trade {
 		} else return null;
 	}
 
-	// Perform a trade if the prices of all coins we're interested in is <$500
+	/**
+	 * Strategy A: Perform a trade if the prices of all coins we're interested in is <$500
+	 * @param broker: broker executing strategy
+	 * @param coinInfo: info on the coin used for trading
+	 * @return: list of transactions after strategy has been executed
+	 */
 	private static Transaction[] strategyA(Broker broker, Coin[] coinInfo) {
 		// Create a variable to store the transactions, as well as action, quantity, and
 		// price variables
@@ -64,7 +74,12 @@ public class Trade {
 		return transactions;
 	}
 
-	// Perform a trade if the price of bitcoin is >$50, then buy bitcoin
+	/**
+	 * Strategy B: Perform a trade if the price of bitcoin is >$50, then buy bitcoin
+	 * @param broker: broker executing strategy
+	 * @param coinInfo: info on the coin used for trading
+	 * @return: list of transactions after strategy has been executed
+	 */
 	private static Transaction[] strategyB(Broker broker, Coin[] coinInfo) {
 		boolean bitcoin = false;
 		int order = 0;
@@ -105,8 +120,13 @@ public class Trade {
 		return transactions;
 	}
 
-	// Perform a trade if the value of the first coin is greater than the value of
-	// the second coin
+	/**
+	 * Strategy C: Perform a trade if the value of the first coin is greater than the value of
+	 * the second coin
+	 * @param broker: broker executing strategy
+	 * @param coinInfo: info on the coin used for trading
+	 * @return: list of transactions after strategy has been executed
+	 */
 	private static Transaction[] strategyC(Broker broker, Coin[] coinInfo) {
 		Transaction[] transactions;
 		if (coinInfo.length > 1) {
@@ -128,7 +148,12 @@ public class Trade {
 		return transactions;
 	}
 
-	// Buy or sell each coin based on the cap and the price
+	/**
+	 * Strategy D: Buy or sell each coin based on the cap and the price
+	 * @param broker: broker executing strategy
+	 * @param coinInfo: info on the coin used for trading
+	 * @return: list of transactions after strategy has been executed
+	 */
 	private static Transaction[] strategyD(Broker broker, Coin[] coinInfo) {
 		Transaction[] tempTransactions = new Transaction[coinInfo.length];
 		Transaction[] transactions;
