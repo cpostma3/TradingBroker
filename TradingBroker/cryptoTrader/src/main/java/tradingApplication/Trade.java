@@ -60,12 +60,11 @@ public class Trade {
 	// Perform a trade if the price of bitcoin is >$50, then buy bitcoin
 	private static Transaction[] strategyB(Broker broker, Coin[] coinInfo) {
 		boolean bitcoin = false;
-		boolean performTrade = false;
 		int order = 0;
 		// Check that bitcoin is one of the coins the broker is interested in
 		for (int i = 0; i < coinInfo.length; i++) {
 			if (coinInfo[i].equals("bitcoin")) {
-				performTrade = true;
+				bitcoin = true;
 				order = i;
 			}
 		}
