@@ -56,9 +56,10 @@ public class BrokerCustomization {
 	}
 	
 	
-	/* TODO Some form of Getter or calculus
-	 * 
+	/* Returns Brokers[]
 	 */
-	
+	protected Broker[] getBrokers() {
+		return brokers;
+	}
 	
 }

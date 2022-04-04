@@ -2,7 +2,7 @@ package tradingApplication;
 
 /* Name: Broker
  * Date: April 2
- * Authors: Josh and Courtney (and Patrick [and Owen])
+ * Authors: Josh
  * Description: This class is representative of a single broker.
  * 				This object holds the Name of the Broker, 
  * 				the Coins the broker is interested in and
