@@ -2,23 +2,23 @@ package tradingApplication;
 
 public class Trade {
 	
-	public String[][] executeStrategy(Broker b) {
+	protected static Transaction[] executeStrategy(Broker broker) {
 		//Get the value of the applicable coins
-		Coin[] coinInfo = PubSub.getInstance().getCoinInfo(b.getCoins());
+		Coin[] coinInfo = PubSub.getInstance().getCoinInfo(broker.getCoins());
 		//Execute the strategy associated with the current broker
-		if (b.getStrategy().equals("Strategy-A")) {
-			return strategyA(b, coinInfo);
-		} else if (b.getStrategy().equals("Strategy-B")) {
-			return strategyB(b, coinInfo);
-		} else if (b.getStrategy().equals("Strategy-C")) {
-			return strategyC(b, coinInfo);
-		} else if (b.getStrategy().equals("Strategy-D")) {
-			return strategyD(b, coinInfo);
+		if (broker.getStrategy().equals("Strategy-A")) {
+			return strategyA(broker, coinInfo);
+		} else if (broker.getStrategy().equals("Strategy-B")) {
+			return strategyB(broker, coinInfo);
+		} else if (broker.getStrategy().equals("Strategy-C")) {
+			return strategyC(broker, coinInfo);
+		} else if (broker.getStrategy().equals("Strategy-D")) {
+			return strategyD(broker, coinInfo);
 		} else return null;
 	}
 
 	// Perform a trade if the prices of all coins we're interested in is <$500
-	private String[][] strategyA(Broker b, Coin[] coinInfo) {
+	private static Transaction[] strategyA(Broker broker, Coin[] coinInfo) {
 		// Create a variable to store the transactions, as well as action, quantity, and
 		// price variables
 		boolean performTrade = true;
@@ -32,32 +32,33 @@ public class Trade {
 		}
 
 		// Perform the trade if the prices of all coins are cheaper than $500
-		String[][] transactions;
+		Transaction[] transactions;
 		if (performTrade) {
-			transactions = new String[coinInfo.length][7];
+			transactions = new Transaction[coinInfo.length];
 			for (int i = 0; i < coinInfo.length; i++) {
-				transactions[i][0] = b.getName();
-				transactions[i][1] = b.getStrategy();
-				transactions[i][2] = coinInfo[i].getName();
-				transactions[i][3] = "Buy";
+				transactions[i].setName(broker.getName());
+				transactions[i].setStrategy(broker.getStrategy());
+				transactions[i].setCoin(coinInfo[i].getName());
+				transactions[i].setAction("Buy");
 				if (coinInfo[i].getVolume() > 10) {
-					transactions[i][4] = "10";
+					transactions[i].setAmount("10");
 				} else {
-					transactions[i][4] = "" + coinInfo[i].getVolume();
+					transactions[i].setAmount("" + coinInfo[i].getVolume());
 				}
-				transactions[i][5] = "" + coinInfo[i].getPrice();
-				transactions[i][6] = PubSub.getInstance().getDate();
+				transactions[i].setPrice("" + coinInfo[i].getPrice());
+				transactions[i].setDate(PubSub.getInstance().getDate());
 			}
 		}
 		// Otherwise, return an empty string
 		else {
-			transactions = new String[0][0];
+			return new Transaction[0];
 		}
+		
 		return transactions;
 	}
 
 	// Perform a trade if the price of bitcoin is >$50, then buy bitcoin
-	private String[][] strategyB(Broker b, Coin[] coinInfo) {
+	private static Transaction[] strategyB(Broker broker, Coin[] coinInfo) {
 		boolean bitcoin = false;
 		boolean performTrade = false;
 		int order = 0;
@@ -71,103 +72,103 @@ public class Trade {
 
 		// Check whether a trade can be performed and should be performed and return the
 		// appropriate value
-		String[][] transactions;
+		Transaction[] transactions;
 		if (bitcoin) {
 			if (coinInfo[order].getPrice() > 50) {
-				transactions = new String[1][7];
-				transactions[0][0] = b.getName();
-				transactions[0][1] = b.getStrategy();
-				transactions[0][2] = coinInfo[order].getName();
-				transactions[0][3] = "Buy";
-				transactions[0][4] = "1";
-				transactions[0][5] = "" + coinInfo[order].getPrice();
-				transactions[0][6] = PubSub.getInstance().getDate();
+				transactions = new Transaction[1];
+				transactions[0].setName(broker.getName());
+				transactions[0].setStrategy(broker.getStrategy());
+				transactions[0].setCoin(coinInfo[order].getName());
+				transactions[0].setAction("Buy");
+				transactions[0].setAmount("1");
+				transactions[0].setPrice("" + coinInfo[order].getPrice());
+				transactions[0].setDate(PubSub.getInstance().getDate());
 			} else {
-				transactions = new String[0][0];
+				transactions = new Transaction[0];
 			}
 		} else {
-			transactions = new String[1][7];
-			transactions[0][0] = b.getName();
-			transactions[0][1] = b.getStrategy();
-			transactions[0][2] = "bitcoin";
-			transactions[0][3] = "Fail";
-			transactions[0][4] = null;
-			transactions[0][5] = null;
-			transactions[0][6] = PubSub.getInstance().getDate();
+			transactions = new Transaction[1];
+			transactions[0].setName(broker.getName());
+			transactions[0].setStrategy(broker.getStrategy());
+			transactions[0].setCoin("bitcoin");
+			transactions[0].setAction("Fail");
+			transactions[0].setAmount(null);
+			transactions[0].setPrice(null);
+			transactions[0].setDate(PubSub.getInstance().getDate());
 		}
 		return transactions;
 	}
 
 	// Perform a trade if the value of the first coin is greater than the value of
 	// the second coin
-	private String[][] strategyC(Broker b, Coin[] coinInfo) {
-		String[][] transactions;
+	private static Transaction[] strategyC(Broker broker, Coin[] coinInfo) {
+		Transaction[] transactions;
 		if (coinInfo.length > 1) {
 			if (coinInfo[0].getPrice() > coinInfo[1].getPrice()) {
-				transactions = new String[1][7];
-				transactions[0][0] = b.getName();
-				transactions[0][1] = b.getStrategy();
-				transactions[0][2] = coinInfo[0].getName();
-				transactions[0][3] = "Sell";
-				transactions[0][4] = "1000";
-				transactions[0][5] = "" + coinInfo[0].getPrice();
-				transactions[0][6] = PubSub.getInstance().getDate();
+				transactions = new Transaction[1];
+				transactions[0].setName(broker.getName());
+				transactions[0].setStrategy(broker.getStrategy());
+				transactions[0].setCoin(coinInfo[0].getName());
+				transactions[0].setAction("Sell");
+				transactions[0].setAmount("1000");
+				transactions[0].setPrice("" + coinInfo[0].getPrice());
+				transactions[0].setDate(PubSub.getInstance().getDate());
 			} else {
-				transactions = new String[0][0];
+				transactions = new Transaction[0];
 			}
 		} else {
-			transactions = new String[0][0];
+			transactions = new Transaction[0];
 		}
 		return transactions;
 	}
 
 	// Buy or sell each coin based on the cap and the price
-	private String[][] strategyD(Broker b, Coin[] coinInfo) {
-		String[][] tempTransactions = new String[coinInfo.length][7];
-		String[][] transactions;
+	private static Transaction[] strategyD(Broker broker, Coin[] coinInfo) {
+		Transaction[] tempTransactions = new Transaction[coinInfo.length];
+		Transaction[] transactions;
 		int increment = 0;
 		// Check if a trade should be performed and record the information
 		for (int i = 0; i < coinInfo.length; i++) {
 			// If the cap is high and the price is high, then sell
 			if (coinInfo[i].getCap() > 5 && coinInfo[i].getPrice() > 500) {
-				tempTransactions[increment][0] = b.getName();
-				tempTransactions[increment][1] = b.getStrategy();
-				tempTransactions[increment][2] = coinInfo[i].getName();
-				tempTransactions[increment][3] = "Sell";
-				tempTransactions[increment][4] = "" + coinInfo[i].getVolume() * 0.2;
-				tempTransactions[increment][5] = "" + coinInfo[i].getPrice();
-				tempTransactions[increment][6] = PubSub.getInstance().getDate();
+				tempTransactions[increment].setName(broker.getName());
+				tempTransactions[increment].setStrategy(broker.getStrategy());
+				tempTransactions[increment].setCoin(coinInfo[i].getName());
+				tempTransactions[increment].setAction("Sell");
+				tempTransactions[increment].setAmount("" + coinInfo[i].getVolume() * 0.2);
+				tempTransactions[increment].setPrice("" + coinInfo[i].getPrice());
+				tempTransactions[increment].setDate(PubSub.getInstance().getDate());
 				increment++;
 			} 
 			// If the cap is high and the price is low, then buy
 			else if (coinInfo[i].getCap() > 5 && coinInfo[i].getPrice() < 500) {
-				tempTransactions[increment][0] = b.getName();
-				tempTransactions[increment][1] = b.getStrategy();
-				tempTransactions[increment][2] = coinInfo[i].getName();
-				tempTransactions[increment][3] = "Buy";
-				tempTransactions[increment][4] = "" + coinInfo[i].getVolume() * 0.1;
-				tempTransactions[increment][5] = "" + coinInfo[i].getPrice();
-				tempTransactions[increment][6] = PubSub.getInstance().getDate();
+				tempTransactions[increment].setName(broker.getName());
+				tempTransactions[increment].setStrategy(broker.getStrategy());
+				tempTransactions[increment].setCoin(coinInfo[i].getName());
+				tempTransactions[increment].setAction("Buy");
+				tempTransactions[increment].setAmount("" + coinInfo[i].getVolume() * 0.1);
+				tempTransactions[increment].setPrice("" + coinInfo[i].getPrice());
+				tempTransactions[increment].setDate(PubSub.getInstance().getDate());
 				increment++;
 			} 
 			// If the cap is low and the price is high, then sell
 			else if (coinInfo[i].getCap() < 5 && coinInfo[i].getPrice() > 500) {
-				tempTransactions[increment][0] = b.getName();
-				tempTransactions[increment][1] = b.getStrategy();
-				tempTransactions[increment][2] = coinInfo[i].getName();
-				tempTransactions[increment][3] = "Sell";
-				tempTransactions[increment][4] = "" + coinInfo[i].getVolume() * 0.15;
-				tempTransactions[increment][5] = "" + coinInfo[i].getPrice();
-				tempTransactions[increment][6] = PubSub.getInstance().getDate();
+				tempTransactions[increment].setName(broker.getName());
+				tempTransactions[increment].setStrategy(broker.getStrategy());
+				tempTransactions[increment].setName(coinInfo[i].getName());
+				tempTransactions[increment].setAction("Sell");
+				tempTransactions[increment].setAmount("" + coinInfo[i].getVolume() * 0.15);
+				tempTransactions[increment].setPrice("" + coinInfo[i].getPrice());
+				tempTransactions[increment].setDate(PubSub.getInstance().getDate());
 				increment++;
 			}
 		}
 
 		// Check if there are items to buy and sell
 		if (increment == 0) {
-			transactions = new String[0][0];
+			transactions = new Transaction[0];
 		} else {
-			transactions = new String[increment][7];
+			transactions = new Transaction[increment];
 		}
 		
 		// Copy over the information of the items to buy and sell
