@@ -32,6 +32,8 @@ import javax.swing.table.TableColumn;
 import authentication.LoginUI;
 import cryptoTrader.utils.DataVisualizationCreator;
 import tradingApplication.BrokerCustomization;
+import tradingApplication.PubSub;
+import tradingApplication.TradeInformation;
 
 public class MainUI extends JFrame implements ActionListener {
 	/**
@@ -143,6 +145,10 @@ public class MainUI extends JFrame implements ActionListener {
 		remRow.setActionCommand("remTableRow");
 		remRow.addActionListener(this);
 
+		JButton displayCryptos = new JButton("Display Cryptocurrencies");
+		displayCryptos.setActionCommand("displayCryptos");
+		displayCryptos.addActionListener(this);
+		
 		scrollPane.setPreferredSize(new Dimension(800, 300));
 		table.setFillsViewportHeight(true);
 		
@@ -156,6 +162,7 @@ public class MainUI extends JFrame implements ActionListener {
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 		buttons.add(addRow);
 		buttons.add(remRow);
+		buttons.add(displayCryptos);//TODO
 		east.add(buttons);
 //		east.add(selectedTickerListLabel);
 //		east.add(selectedTickersScrollPane);
@@ -223,7 +230,8 @@ public class MainUI extends JFrame implements ActionListener {
 					System.out.println(traderName + " " + Arrays.toString(coinNames) + " " + strategyName);
 	        }
 			
-			//brokers
+			//update The transaction Information with new brokers
+			TradeInformation.getInstance().populateBrokers(brokers);
 			
 			stats.removeAll();
 			DataVisualizationCreator creator = new DataVisualizationCreator();
@@ -234,6 +242,8 @@ public class MainUI extends JFrame implements ActionListener {
 			int selectedRow = table.getSelectedRow();
 			if (selectedRow != -1)
 				dtm.removeRow(selectedRow);
+		} else if("displayCryptos".equals(command)) { //This will display 
+			PubSub.getInstance().displayCryptoNames();
 		}
 	}
 

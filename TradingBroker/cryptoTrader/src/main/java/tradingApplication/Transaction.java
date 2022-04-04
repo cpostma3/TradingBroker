@@ -1,73 +1,133 @@
 package tradingApplication;
 
+/**
+ * @Name: Transaction
+ * @Date: April 3
+ * @Authors: Patrick
+ * @Description: The Transaction Class holds the information of a single broker transaction. 
+ * 				The attributes being the name, strategy, coin, action(buy or sell), 
+ * 				the amount bought or sold, price and date.
+ */
 public class Transaction {
-	private String[] t = new String[7];
+	private String[] tData = new String[7];
 	
-	public Transaction(String[] trn){
-		this.t = trn;
-	}
-	
+	/**
+	 * getter for all transaction data
+	 * @return all the transaction data
+	 */
 	public String[] getAll() {
-		return this.t;
+		return this.tData;
 	}
 	
-	public void setAll(String[] trn) {
-		this.t = trn;
-	}
-	
+	/**
+	 * getter for name
+	 * @return name of transaction
+	 */
 	public String getName() {
-		return this.t[0];
+		return this.tData[0];
 	}
 	
-	public void setName(String n) {
-		this.t[0] = n;
+	/**
+	 * getter for trading strategy
+	 * @return trading strategy
+	 */
+	public String getStrategy() {
+		return this.tData[1];
 	}
 	
-	public String getStrat() {
-		return this.t[1];
-	}
-	
-	public void setStrat(String s) {
-		this.t[1] = s;
-	}
-	
+	/**
+	 * getter for coin type
+	 * @return coin type
+	 */
 	public String getCoin() {
-		return this.t[2];
+		return this.tData[2];
 	}
 	
-	public void setCoin(String c) {
-		this.t[2] = c;
-	}
-	
+	/**
+	 * getter for action
+	 * @return action
+	 */
 	public String getAction() {
-		return this.t[3];
+		return this.tData[3];
 	}
 	
-	public void setAction(String a) {
-		this.t[3] = a;
-	}
-	
+	/**
+	 * getter for amount
+	 * @return amount of currency
+	 */
 	public String getAmount() {
-		return this.t[4];
+		return this.tData[4];
 	}
 	
-	public void setAmount(String a) {
-		this.t[4] = a;
-	}
-	
+	/**
+	 * getter for price
+	 * @return price of coin
+	 */
 	public String getPrice() {
-		return this.t[5];
+		return this.tData[5];
 	}
 	
-	public void setPrice(String p) {
-		this.t[5] = p;
-	}
-	
+	/**
+	 * getter for date
+	 * @return date of transaction
+	 */
 	public String getDate() {
-		return this.t[6];
+		return this.tData[6];
 	}
 	
-	public void setDate(String d) {
-		this.t[6] = d;
+	/**
+	 * setter for name of currency
+	 * @param name: currency name
+	 */
+	public void setName(String name) {
+		this.tData[0] = name;
+	}
+
+	/**
+	 * setter for trading strategy
+	 * @param strategy: desired trading strategy
+	 */
+	public void setStrategy(String strategy) {
+		this.tData[1] = strategy;
+	}
+	
+	/**
+	 * setter for coin type
+	 * @param coin: desired coin type
+	 */
+	public void setCoin(String coin) {
+		this.tData[2] = coin;
+	}
+	
+	/**
+	 * setter for action
+	 * @param action
+	 */
+	public void setAction(String action) {
+		this.tData[3] = action;
+	}
+	
+	/**
+	 * setter for amount of currency
+	 * @param amount: amount of currency available
+	 */
+	public void setAmount(String amount) {
+		this.tData[4] = amount;
+	}
+	
+	/**
+	 * setter for price of currency
+	 * @param price: current price of currency
+	 */
+	public void setPrice(String price) {
+		this.tData[5] = price;
+	}
+	
+	/**
+	 * setter for date of transaction
+	 * @param date: date of transaction
+	 */
+	public void setDate(String date) {
+		this.tData[6] = date;
 	}
 }

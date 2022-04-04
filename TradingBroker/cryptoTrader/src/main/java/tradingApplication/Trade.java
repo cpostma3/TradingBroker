@@ -1,7 +1,19 @@
 package tradingApplication;
 
+/**
+ * @Name: Trade
+ * @Date: April 4
+ * @Authors: Courtney, Patrick, Josh and Owen
+ * @Description: This class's purpose is to execute a single broker's strategy
+ * 				returning the transaction(s) it performed in a Transaction[]
+ */
 public class Trade {
 	
+	/**
+	 * Find which strategy the broker uses and execute it
+	 * @param broker: broker desired to use strategy
+	 * @return corresponding strategy to the broker, or null if none selected
+	 */
 	protected static Transaction[] executeStrategy(Broker broker) {
 		//Get the value of the applicable coins
 		Coin[] coinInfo = PubSub.getInstance().getCoinInfo(broker.getCoins());
@@ -17,7 +29,12 @@ public class Trade {
 		} else return null;
 	}
 
-	// Perform a trade if the prices of all coins we're interested in is <$500
+	/**
+	 * Strategy A: Perform a trade if the prices of all coins we're interested in is <$500
+	 * @param broker: broker executing strategy
+	 * @param coinInfo: info on the coin used for trading
+	 * @return: list of transactions after strategy has been executed
+	 */
 	private static Transaction[] strategyA(Broker broker, Coin[] coinInfo) {
 		// Create a variable to store the transactions, as well as action, quantity, and
 		// price variables
@@ -36,6 +53,7 @@ public class Trade {
 		if (performTrade) {
 			transactions = new Transaction[coinInfo.length];
 			for (int i = 0; i < coinInfo.length; i++) {
+				transactions[i] = new Transaction();
 				transactions[i].setName(broker.getName());
 				transactions[i].setStrategy(broker.getStrategy());
 				transactions[i].setCoin(coinInfo[i].getName());
@@ -51,19 +69,24 @@ public class Trade {
 		}
 		// Otherwise, return an empty string
 		else {
-			return new Transaction[0];
+			transactions =  new Transaction[0];
 		}
 		
 		return transactions;
 	}
 
-	// Perform a trade if the price of bitcoin is >$50, then buy bitcoin
+	/**
+	 * Strategy B: Perform a trade if the price of bitcoin is >$50, then buy bitcoin
+	 * @param broker: broker executing strategy
+	 * @param coinInfo: info on the coin used for trading
+	 * @return: list of transactions after strategy has been executed
+	 */
 	private static Transaction[] strategyB(Broker broker, Coin[] coinInfo) {
 		boolean bitcoin = false;
 		int order = 0;
 		// Check that bitcoin is one of the coins the broker is interested in
 		for (int i = 0; i < coinInfo.length; i++) {
-			if (coinInfo[i].equals("bitcoin")) {
+			if (coinInfo[i].getName().toLowerCase().equals("bitcoin")) {
 				bitcoin = true;
 				order = i;
 			}
@@ -75,6 +98,7 @@ public class Trade {
 		if (bitcoin) {
 			if (coinInfo[order].getPrice() > 50) {
 				transactions = new Transaction[1];
+				transactions[0] = new Transaction();
 				transactions[0].setName(broker.getName());
 				transactions[0].setStrategy(broker.getStrategy());
 				transactions[0].setCoin(coinInfo[order].getName());
@@ -87,24 +111,31 @@ public class Trade {
 			}
 		} else {
 			transactions = new Transaction[1];
+			transactions[0] = new Transaction();
 			transactions[0].setName(broker.getName());
 			transactions[0].setStrategy(broker.getStrategy());
 			transactions[0].setCoin("bitcoin");
 			transactions[0].setAction("Fail");
-			transactions[0].setAmount(null);
-			transactions[0].setPrice(null);
+			transactions[0].setAmount("Null");
+			transactions[0].setPrice("Null");
 			transactions[0].setDate(PubSub.getInstance().getDate());
 		}
 		return transactions;
 	}
 
-	// Perform a trade if the value of the first coin is greater than the value of
-	// the second coin
+	/**
+	 * Strategy C: Perform a trade if the value of the first coin is greater than the value of
+	 * the second coin
+	 * @param broker: broker executing strategy
+	 * @param coinInfo: info on the coin used for trading
+	 * @return: list of transactions after strategy has been executed
+	 */
 	private static Transaction[] strategyC(Broker broker, Coin[] coinInfo) {
 		Transaction[] transactions;
 		if (coinInfo.length > 1) {
 			if (coinInfo[0].getPrice() > coinInfo[1].getPrice()) {
 				transactions = new Transaction[1];
+				transactions[0] = new Transaction();
 				transactions[0].setName(broker.getName());
 				transactions[0].setStrategy(broker.getStrategy());
 				transactions[0].setCoin(coinInfo[0].getName());
@@ -114,6 +145,7 @@ public class Trade {
 				transactions[0].setDate(PubSub.getInstance().getDate());
 			} else {
 				transactions = new Transaction[0];
+				
 			}
 		} else {
 			transactions = new Transaction[0];
@@ -121,7 +153,12 @@ public class Trade {
 		return transactions;
 	}
 
-	// Buy or sell each coin based on the cap and the price
+	/**
+	 * Strategy D: Buy or sell each coin based on the cap and the price
+	 * @param broker: broker executing strategy
+	 * @param coinInfo: info on the coin used for trading
+	 * @return: list of transactions after strategy has been executed
+	 */
 	private static Transaction[] strategyD(Broker broker, Coin[] coinInfo) {
 		Transaction[] tempTransactions = new Transaction[coinInfo.length];
 		Transaction[] transactions;
@@ -130,6 +167,7 @@ public class Trade {
 		for (int i = 0; i < coinInfo.length; i++) {
 			// If the cap is high and the price is high, then sell
 			if (coinInfo[i].getCap() > 5 && coinInfo[i].getPrice() > 500) {
+				tempTransactions[i] = new Transaction();
 				tempTransactions[increment].setName(broker.getName());
 				tempTransactions[increment].setStrategy(broker.getStrategy());
 				tempTransactions[increment].setCoin(coinInfo[i].getName());
@@ -141,6 +179,7 @@ public class Trade {
 			} 
 			// If the cap is high and the price is low, then buy
 			else if (coinInfo[i].getCap() > 5 && coinInfo[i].getPrice() < 500) {
+				tempTransactions[i] = new Transaction();
 				tempTransactions[increment].setName(broker.getName());
 				tempTransactions[increment].setStrategy(broker.getStrategy());
 				tempTransactions[increment].setCoin(coinInfo[i].getName());
@@ -152,6 +191,7 @@ public class Trade {
 			} 
 			// If the cap is low and the price is high, then sell
 			else if (coinInfo[i].getCap() < 5 && coinInfo[i].getPrice() > 500) {
+				tempTransactions[i] = new Transaction();
 				tempTransactions[increment].setName(broker.getName());
 				tempTransactions[increment].setStrategy(broker.getStrategy());
 				tempTransactions[increment].setName(coinInfo[i].getName());
