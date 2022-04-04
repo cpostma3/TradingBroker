@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/* Name: Coin
+ * Date: April 3
+ * Authors: Josh
+ * Description: The PubSub Class is used to fetch coin values and
+ * 				
+ * 				be accessed via the getter methods 
+ */
 public class PubSub {
 	
 	private static PubSub instance;
@@ -40,12 +47,10 @@ public class PubSub {
 	public void refresh() {
 		SimpleDateFormat form = new SimpleDateFormat("dd-MM-yyyy");
 		date = form.format(new Date());
-		
-		
 	}
 
 	/* This method returns the current market price, market cap and volume
-	 * of each coin in the coinName array. and is
+	 * of each coin in the coinName array. 
 	 * 
 	 */
 	public Coin[] getCoinInfo(String coinNames[]){
@@ -54,31 +59,19 @@ public class PubSub {
 			for(int j = 0; j < cryptoNames.length; j++) {
 				//Get the coin id and see if they match if so add information
 				String id = AvailableCryptoList.getInstance().getCryptoID(cryptoNames[j]);
-//				System.out.println(id + " is called " + cryptoNames[j]);    This is to see the list of cryptos and their names
+//				System.out.println(id + " is called " + cryptoNames[j] + " The price " + fetch.getPriceForCoin(id, date) + " the cap is " + fetch.getMarketCapForCoin(id, date));   // This is to see the list of cryptos and their names
 				if(cryptoNames[j].equals(coinNames[i]) || id.equals(coinNames[i])) {
 					want[i] = new Coin(id, fetch.getPriceForCoin(id, date), fetch.getMarketCapForCoin(id, date), fetch.getVolumeForCoin(id, date));
 					break;
 				}
 			}
-			System.out.println(coinNames[i] + " price: " + want[i].getPrice() + " cap " + want[i].getCap() + " volume " + want[i].getVolume());
-//			System.out.println();
+//			System.out.println(coinNames[i] + " price: " + want[i].getPrice() + " cap " + want[i].getCap() + " volume " + want[i].getVolume());
 		}
 		
 		return want;
 	}
 	
-	
-	
-	/* Helper predicate method that returns true if the string
-	 * is the name of a crypto currency returns false otherwise
-	 */
-	private boolean isCrypto(String coin) {
-		for(int i = 0; i < cryptoNames.length; i++)
-			if(cryptoNames[i].equals(coin))
-				return true;
-		
-		return false;
-	}
+
 
 	/* Method that returns the date
 	 */
@@ -88,7 +81,7 @@ public class PubSub {
 	
 	public static void main(String[] args) {
 		PubSub pub = new PubSub();
-		String [] t = {"EOS", "bitcoin", "flow"};
+		String [] t = {"EOS"};
 		pub.getCoinInfo(t);
 		
 	}
