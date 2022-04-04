@@ -36,6 +36,9 @@ public class TradeInformation {
 	 * @param brokers: brokers available
 	 */
 	public void populateBrokers(BrokerCustomization brokers) {
+		//remove old brokers
+		transactions.clear();
+		
 		Broker[] brokerList = brokers.getBrokers();
 		for(int i = 0; i < brokerList.length; i++) {
 			Transaction[] transactionList = Trade.executeStrategy(brokerList[i]);
