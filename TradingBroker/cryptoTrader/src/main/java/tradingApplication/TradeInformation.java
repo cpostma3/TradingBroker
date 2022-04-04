@@ -2,8 +2,6 @@ package tradingApplication;
 
 import java.util.ArrayList;
 
-import cryptoTrader.gui.MainUI;
-
 /**
  * @Name TradeInformation
  * @Date April 4

@@ -1,5 +1,12 @@
 package tradingApplication;
 
+/* Name: Broker
+ * Date: April 4
+ * Authors: Courtney, Patrick, Josh and Owen
+ * Description: This class's purpose is to execute a single broker's strategy
+ * 				returning the transaction(s) it performed in a Transaction[]
+ */
+
 public class Trade {
 	
 	protected static Transaction[] executeStrategy(Broker broker) {

@@ -32,6 +32,7 @@ import javax.swing.table.TableColumn;
 import authentication.LoginUI;
 import cryptoTrader.utils.DataVisualizationCreator;
 import tradingApplication.BrokerCustomization;
+import tradingApplication.TradeInformation;
 
 public class MainUI extends JFrame implements ActionListener {
 	/**
@@ -223,7 +224,8 @@ public class MainUI extends JFrame implements ActionListener {
 					System.out.println(traderName + " " + Arrays.toString(coinNames) + " " + strategyName);
 	        }
 			
-			//brokers
+			//update The transaction Information with new brokers
+			TradeInformation.getInstance().populateBrokers(brokers);
 			
 			stats.removeAll();
 			DataVisualizationCreator creator = new DataVisualizationCreator();
