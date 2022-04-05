@@ -32,6 +32,12 @@ import tradingApplication.TradeInformation;
 
 import java.lang.Double;
 
+/**
+ * @name DataVisualizationCreator
+ * @date April 4
+ * @author Assignment resources sample code
+ * @description Creates the tables and histogram for the main UI
+ */
 public class DataVisualizationCreator {
 	
 	public void createCharts() {

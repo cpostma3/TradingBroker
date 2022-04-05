@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- * @Name: Authentication
+ * @Name: LoginUI
  * @Date: April 3
  * @Authors: Josh (and Courtney)
  * @Description: LoginUI's primary method is Login which creates a popup to allow the
