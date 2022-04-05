@@ -1,6 +1,5 @@
 package crypto;
 
-import cryptoTrader.gui.MainUI;
 import cryptoTrader.utils.AvailableCryptoList;
 import cryptoTrader.utils.DataFetcher;
 import java.text.SimpleDateFormat;
