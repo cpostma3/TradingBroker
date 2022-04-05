@@ -10,7 +10,7 @@ package tradingApplication;
  * 				the strategy the broker uses
  *
  */
-public class Broker {
+public class Broker implements Product{
 
 	// Attributes of the Broker
 	private String name;
