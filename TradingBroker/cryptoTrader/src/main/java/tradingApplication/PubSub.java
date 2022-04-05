@@ -70,7 +70,7 @@ public class PubSub {
 				String id = AvailableCryptoList.getInstance().getCryptoID(cryptoNames[j]);
 //				System.out.println(id + " is called " + cryptoNames[j] + " The price " + fetch.getPriceForCoin(id, date) + " the cap is " + fetch.getMarketCapForCoin(id, date));   // This is to see the list of cryptos and their names
 				if(cryptoNames[j].equals(coinNames[i]) || id.equals(coinNames[i])) {
-					want.add(new Coin(id, fetch.getPriceForCoin(id, date), fetch.getMarketCapForCoin(id, date), fetch.getVolumeForCoin(id, date)));
+					want.add(CoinCreator.build(id, fetch.getPriceForCoin(id, date), fetch.getMarketCapForCoin(id, date), fetch.getVolumeForCoin(id, date)));
 					break;
 				}
 			}
