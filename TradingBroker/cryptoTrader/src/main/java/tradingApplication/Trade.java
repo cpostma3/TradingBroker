@@ -17,6 +17,8 @@ public class Trade {
 	protected static Transaction[] executeStrategy(Broker broker) {
 		//Get the value of the applicable coins
 		Coin[] coinInfo = PubSub.getInstance().getCoinInfo(broker.getCoins());
+		if(coinInfo == null)
+			return new Transaction[0];
 		//Execute the strategy associated with the current broker
 		if (broker.getStrategy().equals("Strategy-A")) {
 			return strategyA(broker, coinInfo);

@@ -194,7 +194,7 @@ public class DataVisualizationCreator {
 		String[][] data = TradeInformation.getInstance().getTransactionsList();
 		
 		for(int i = 0; i < data.length; i++)
-			dataset.setValue(Double.valueOf(data[i][4]), data[i][0], data[i][1]);
+			dataset.setValue((int)(Double.parseDouble(data[i][4])), data[i][0], data[i][1]);
 //		dataset.setValue(6, "Trader-1", "Strategy-A");
 //		dataset.setValue(5, "Trader-2", "Strategy-B");
 //		dataset.setValue(0, "Trader-3", "Strategy-E");
@@ -209,7 +209,7 @@ public class DataVisualizationCreator {
 		CategoryAxis domainAxis = new CategoryAxis("Strategy");
 		plot.setDomainAxis(domainAxis);
 		LogAxis rangeAxis = new LogAxis("Actions(Buys or Sells)");
-		rangeAxis.setRange(new Range(1.0, 20.0));
+		rangeAxis.setRange(new Range(0.1, 20.0));
 		plot.setRangeAxis(rangeAxis);
 
 		//plot.mapDatasetToRangeAxis(0, 0);// 1st dataset to 1st y-axis
