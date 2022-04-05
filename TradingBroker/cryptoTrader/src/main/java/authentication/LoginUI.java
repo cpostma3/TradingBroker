@@ -32,13 +32,18 @@ public class LoginUI {
 
 		JTextField username = new JTextField();
 		JTextField password = new JTextField();
-
+		
 		Object[] message = { "Username:", username, "Password:", password };
 
 		// Prompt the user if they want to create a new account
 		int opt = JOptionPane.showConfirmDialog(null, "Do you have an account?", "Login", JOptionPane.YES_NO_OPTION);
 		if (opt == JOptionPane.NO_OPTION) {
-			opt = JOptionPane.showConfirmDialog(null, message, "Create New User", JOptionPane.CANCEL_OPTION);
+			
+			//Create new user if a field is empty AND they wish to add an account reprompt
+			do {
+				opt = JOptionPane.showConfirmDialog(null, message, "Create New User", JOptionPane.CANCEL_OPTION);
+			}while((username.getText().isEmpty() || password.getText().isEmpty()) && opt == JOptionPane.OK_OPTION);
+			
 			if (opt == JOptionPane.OK_OPTION) {
 				try {
 					if (!aut.addUser(username.getText(), password.getText())) {
@@ -56,9 +61,11 @@ public class LoginUI {
 		username.setText("");
 		password.setText("");
 
-		// Prompt for the Login
-
-		opt = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.CANCEL_OPTION);
+		// Prompt for the Login if a text field is empty AND they want to login reprompt
+		do {
+			opt = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.CANCEL_OPTION);
+		}while((username.getText().isEmpty() || password.getText().isEmpty()) && opt == JOptionPane.OK_OPTION);
+	
 		if (opt == JOptionPane.OK_OPTION)
 			// Determine if the Login was correct
 			if (aut.login(username.getText(), password.getText()))
