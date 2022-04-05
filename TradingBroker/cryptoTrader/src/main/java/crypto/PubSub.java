@@ -44,7 +44,14 @@ public class PubSub extends Creator{
 		fetch = new DataFetcher();
 		refresh();
 	}
-	
+	/**
+	 * factory method to build a coin object, and return the object
+	 * @param name
+	 * @param price
+	 * @param cap
+	 * @param volume
+	 * @return
+	 */
 	public Coin build(String name, double price, double cap, double volume) {
 		return new Coin(name,price,cap,volume);
 	}
