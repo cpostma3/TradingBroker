@@ -8,7 +8,7 @@ package crypto;
  * 				being the name, price, market cap and volume. These attributes can
  * 				be accessed via the getter methods 
  */
-public class Coin {
+public class Coin implements Product {
 
 	//attributes
 	private String name;
