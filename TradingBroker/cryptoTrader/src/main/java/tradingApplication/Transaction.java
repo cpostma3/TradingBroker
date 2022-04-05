@@ -20,62 +20,6 @@ public class Transaction {
 	}
 	
 	/**
-	 * getter for name
-	 * @return name of transaction
-	 */
-	public String getName() {
-		return this.tData[0];
-	}
-	
-	/**
-	 * getter for trading strategy
-	 * @return trading strategy
-	 */
-	public String getStrategy() {
-		return this.tData[1];
-	}
-	
-	/**
-	 * getter for coin type
-	 * @return coin type
-	 */
-	public String getCoin() {
-		return this.tData[2];
-	}
-	
-	/**
-	 * getter for action
-	 * @return action
-	 */
-	public String getAction() {
-		return this.tData[3];
-	}
-	
-	/**
-	 * getter for amount
-	 * @return amount of currency
-	 */
-	public String getAmount() {
-		return this.tData[4];
-	}
-	
-	/**
-	 * getter for price
-	 * @return price of coin
-	 */
-	public String getPrice() {
-		return this.tData[5];
-	}
-	
-	/**
-	 * getter for date
-	 * @return date of transaction
-	 */
-	public String getDate() {
-		return this.tData[6];
-	}
-	
-	/**
 	 * setter for name of currency
 	 * @param name: currency name
 	 */
