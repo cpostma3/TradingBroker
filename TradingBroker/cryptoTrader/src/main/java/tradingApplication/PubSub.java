@@ -63,21 +63,24 @@ public class PubSub {
 	 * @return: the current market price, market cap and volume
 	 */
 	public Coin[] getCoinInfo(String coinNames[]){
-		Coin[] want = new Coin[coinNames.length];
+		List<Coin> want = new ArrayList<Coin>();
 		for(int i = 0; i < coinNames.length; i++) {
 			for(int j = 0; j < cryptoNames.length; j++) {
 				//Get the coin id and see if they match if so add information
 				String id = AvailableCryptoList.getInstance().getCryptoID(cryptoNames[j]);
 //				System.out.println(id + " is called " + cryptoNames[j] + " The price " + fetch.getPriceForCoin(id, date) + " the cap is " + fetch.getMarketCapForCoin(id, date));   // This is to see the list of cryptos and their names
 				if(cryptoNames[j].equals(coinNames[i]) || id.equals(coinNames[i])) {
-					want[i] = new Coin(id, fetch.getPriceForCoin(id, date), fetch.getMarketCapForCoin(id, date), fetch.getVolumeForCoin(id, date));
+					want.add(new Coin(id, fetch.getPriceForCoin(id, date), fetch.getMarketCapForCoin(id, date), fetch.getVolumeForCoin(id, date)));
 					break;
 				}
 			}
 //			System.out.println(coinNames[i] + " price: " + want[i].getPrice() + " cap " + want[i].getCap() + " volume " + want[i].getVolume());
 		}
 		
-		return want;
+		if(want.isEmpty())
+			return null;
+		
+		return want.toArray(new Coin[0]);
 	}
 	
 	/**
