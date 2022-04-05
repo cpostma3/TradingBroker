@@ -8,7 +8,7 @@ package tradingApplication;
  * 				being the name, price, market cap and volume. These attributes can
  * 				be accessed via the getter methods 
  */
-public class Coin extends Product {
+public class Coin {
 
 	//attributes
 	private String name;

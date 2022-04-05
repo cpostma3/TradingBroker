@@ -4,7 +4,6 @@ public class CoinCreator extends Creator{
 
 	@Override
 	public Coin build(String name) {
-		// TODO Auto-generated method stub
 		return new Coin(name);
 	}
 	
