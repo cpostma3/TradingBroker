@@ -31,9 +31,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import authentication.LoginUI;
+import crypto.PubSub;
 import cryptoTrader.utils.DataVisualizationCreator;
 import tradingApplication.BrokerCustomization;
-import tradingApplication.PubSub;
 import tradingApplication.TradeInformation;
 
 public class MainUI extends JFrame implements ActionListener {
@@ -200,9 +200,7 @@ public class MainUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 		if ("refresh".equals(command)) {
-			//Create a broker customization object and give it the count of brokers
-			BrokerCustomization brokers = new BrokerCustomization(dtm.getRowCount());
-			
+			TradeInformation.getInstance().clear();
 			for (int count = 0; count < dtm.getRowCount(); count++){
 					Object traderObject = dtm.getValueAt(count, 0);
 					if (traderObject == null) {
@@ -224,7 +222,7 @@ public class MainUI extends JFrame implements ActionListener {
 					String strategyName = strategyObject.toString();
 					
 					//Add the new Broker object if there is a duplicate name show message and return
-					if (!brokers.addBroker(traderName, coinNames, strategyName)) {
+					if (!TradeInformation.getInstance().addBroker(traderName, coinNames, strategyName)) {
 						JOptionPane.showMessageDialog(this, "Duplicated broker name " +  traderName + " at line " + (count + 1) );
 						return;
 					}
@@ -233,7 +231,7 @@ public class MainUI extends JFrame implements ActionListener {
 	        }
 			
 			//update The transaction Information with new brokers
-			TradeInformation.getInstance().populateBrokers(brokers);
+			TradeInformation.getInstance().executeBrokers();
 			
 			stats.removeAll();
 			DataVisualizationCreator creator = new DataVisualizationCreator();

@@ -23,7 +23,7 @@ public class Broker {
 	 * @param coins: what coins the broker has available
 	 * @param strategy: broker's trading strategy
 	 */
-	public Broker(String name, String[] coins, String strategy) {
+	protected Broker(String name, String[] coins, String strategy) {
 		this.name = name;
 		this.coinNames = coins;
 		this.strategy = strategy;

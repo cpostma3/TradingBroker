@@ -12,7 +12,7 @@ public class TradeInformation {
 	
 	private static TradeInformation instance;
 	private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-	
+	private BrokerCustomization brokers;
 	/**
 	 * Create instance of itself it doesn't already exist
 	 * @return instance of itself
@@ -28,17 +28,28 @@ public class TradeInformation {
 	 * Constructor for instance calling.
 	 */
 	private TradeInformation() {
-		
+		brokers = new BrokerCustomization();
+	}
+
+	/**
+	 * Constructor for instance calling.
+	 */
+	public boolean addBroker(String name, String[] coins, String strategy) {
+		return brokers.addBroker(name, coins, strategy);
+	}
+	
+	/**
+	 * Clears the list of Brokers in BrokerCustomization
+	 */
+	public void clear() {
+		brokers.clear();
 	}
 	
 	/**
 	 * Execute broker's trading strategy from broker list
-	 * @param brokers: brokers available
+	 * 
 	 */
-	public void populateBrokers(BrokerCustomization brokers) {
-		//remove old brokers
-		transactions.clear();
-		
+	public void executeBrokers() {
 		Broker[] brokerList = brokers.getBrokers();
 		for(int i = 0; i < brokerList.length; i++) {
 			Transaction[] transactionList = Trade.executeStrategy(brokerList[i]);
@@ -50,7 +61,7 @@ public class TradeInformation {
 	
 	/**
 	 * getter to return transaction list
-	 * @return list of transactions
+	 * @return String[][] list of transactions
 	 */
 	public String[][] getTransactionsList(){
 		String[][] transactionList = new String[transactions.size()][7];

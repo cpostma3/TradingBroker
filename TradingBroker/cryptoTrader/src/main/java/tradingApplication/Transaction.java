@@ -15,7 +15,7 @@ public class Transaction {
 	 * getter for all transaction data
 	 * @return all the transaction data
 	 */
-	public String[] getAll() {
+	protected String[] getAll() {
 		return this.tData;
 	}
 	
