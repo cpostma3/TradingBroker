@@ -118,7 +118,7 @@ public class Trade {
 			transactions[0].setStrategy(broker.getStrategy());
 			transactions[0].setCoin("bitcoin");
 			transactions[0].setAction("Fail");
-			transactions[0].setAmount("Null");
+			transactions[0].setAmount("0");
 			transactions[0].setPrice("Null");
 			transactions[0].setDate(PubSub.getInstance().getDate());
 		}
@@ -142,7 +142,7 @@ public class Trade {
 				transactions[0].setStrategy(broker.getStrategy());
 				transactions[0].setCoin(coinInfo[0].getName());
 				transactions[0].setAction("Sell");
-				transactions[0].setAmount("1000");
+				transactions[0].setAmount("4");
 				transactions[0].setPrice("" + coinInfo[0].getPrice());
 				transactions[0].setDate(PubSub.getInstance().getDate());
 			} else {
