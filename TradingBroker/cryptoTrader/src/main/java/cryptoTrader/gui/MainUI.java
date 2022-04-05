@@ -25,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -189,6 +190,7 @@ public class MainUI extends JFrame implements ActionListener {
 
 	public static void main(String[] args) {
 		JFrame frame = MainUI.getInstance();
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setSize(900, 600);
 		frame.pack();
 		frame.setVisible(true);
