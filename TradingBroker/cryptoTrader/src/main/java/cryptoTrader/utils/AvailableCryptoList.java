@@ -13,6 +13,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+/**
+ * @name AvailableCryptoList
+ * @date April 4
+ * @author Assignment resources sample
+ * @description fetch available cryptocurrencies
+ */
 public class AvailableCryptoList {
 	private static AvailableCryptoList instance = null;
 	

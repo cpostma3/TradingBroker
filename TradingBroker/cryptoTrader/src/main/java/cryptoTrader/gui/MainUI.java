@@ -36,10 +36,14 @@ import cryptoTrader.utils.DataVisualizationCreator;
 import tradingApplication.BrokerCustomization;
 import tradingApplication.TradeInformation;
 
+/**
+ * @name MainUI
+ * @date April 4
+ * @author Assignment resources modified by Josh
+ * @description creates the main UI
+ */
 public class MainUI extends JFrame implements ActionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private static MainUI instance;
