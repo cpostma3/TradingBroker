@@ -46,11 +46,11 @@ public class PubSub extends Creator{
 	}
 	/**
 	 * factory method to build a coin object, and return the object
-	 * @param name
-	 * @param price
-	 * @param cap
-	 * @param volume
-	 * @return
+	 * @param name of coin
+	 * @param price of coin
+	 * @param market cap for coin
+	 * @param trade volume for coin
+	 * @return the created coin object
 	 */
 	public Coin build(String name, double price, double cap, double volume) {
 		return new Coin(name,price,cap,volume);
