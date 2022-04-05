@@ -1,4 +1,4 @@
-package tradingApplication;
+package crypto;
 
 /**
  * @Name: Coin

@@ -1,4 +1,4 @@
-package tradingApplication;
+package crypto;
 
 import cryptoTrader.gui.MainUI;
 import cryptoTrader.utils.AvailableCryptoList;

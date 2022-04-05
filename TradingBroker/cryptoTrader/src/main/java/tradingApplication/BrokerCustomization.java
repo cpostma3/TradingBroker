@@ -1,5 +1,8 @@
 package tradingApplication;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Name: BrokerCustomization
  * @Date: April 2
@@ -12,17 +15,15 @@ package tradingApplication;
  */
 public class BrokerCustomization {
 
-	//Attributes
-	private Broker brokers [];
-	private int cur = 0;
+	private List<Broker> brokers ;
 	
 	/**
 	 * Constructor for BrokerCustomization
 	 * Sets the total number of brokers held
 	 * @param size: total number of brokers
 	 */
-	public BrokerCustomization(int size) {
-		brokers = new Broker [size];
+	protected BrokerCustomization() {
+		brokers = new ArrayList<Broker>();
 	}
 	
 	
@@ -36,15 +37,19 @@ public class BrokerCustomization {
 	 * @param strategy: the strategy the broker wants to use
 	 * @return true if broker is added to array, false otherwise
 	 */
-	public boolean addBroker(String name, String[] coins, String strategy) {
+	protected boolean addBroker(String name, String[] coins, String strategy) {
 		//If there is another broker of that name return false
 		if (duplicateBroker(name))
 			return false;
 
 		//Create Broker and increment
-		brokers[cur] = new Broker(name, coins, strategy);
-		cur++;
+		brokers.add(new Broker(name, coins, strategy));
 		return true;
+	}
+	
+	
+	protected void clear(){
+		brokers.clear();
 	}
 	
 	/**
@@ -55,8 +60,8 @@ public class BrokerCustomization {
 	 * @return: true if broker of the same name exists, otherwise false
 	 */
 	private boolean duplicateBroker(String name) {
-		for (int i = 0; i < cur; i++)
-			if(brokers[i].getName().equals(name))
+		for (Broker broker : brokers)
+			if(broker.getName().equals(name))
 				return true;
 		return false;
 	}
@@ -67,7 +72,7 @@ public class BrokerCustomization {
 	 * @return list of brokers
 	 */
 	protected Broker[] getBrokers() {
-		return brokers;
+		return brokers.toArray(new Broker[0]);
 	}
 	
 }

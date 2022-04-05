@@ -1,5 +1,8 @@
 package tradingApplication;
 
+import crypto.Coin;
+import crypto.PubSub;
+
 /**
  * @Name: Trade
  * @Date: April 4
