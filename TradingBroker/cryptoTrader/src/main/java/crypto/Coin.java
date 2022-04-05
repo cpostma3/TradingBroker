@@ -1,5 +1,5 @@
 package crypto;
-
+import tradingApplication.Product;
 /**
  * @Name: Coin
  * @Date: April 3
